@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: org.scala.validation:core_2.12:0.0.5:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.coursier/cache/v1/http/dl.bintray.com/scala-validation/releases/org/scala/validation/core_2.12/0.0.5/core_2.12-0.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.coursier/cache/v1/http/dl.bintray.com/scala-validation/releases/org/scala/validation/core_2.12/0.0.5/core_2.12-0.0.5-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.coursier/cache/v1/http/dl.bintray.com/scala-validation/releases/org/scala/validation/core_2.12/0.0.5/core_2.12-0.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

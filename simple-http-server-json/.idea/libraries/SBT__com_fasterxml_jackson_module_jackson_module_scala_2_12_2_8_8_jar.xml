@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: com.fasterxml.jackson.module:jackson-module-scala_2.12:2.8.8:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-scala_2.12/2.8.8/jackson-module-scala_2.12-2.8.8.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-scala_2.12/2.8.8/jackson-module-scala_2.12-2.8.8-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.coursier/cache/v1/https/repo1.maven.org/maven2/com/fasterxml/jackson/module/jackson-module-scala_2.12/2.8.8/jackson-module-scala_2.12-2.8.8-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
