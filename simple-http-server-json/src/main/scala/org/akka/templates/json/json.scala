@@ -17,7 +17,7 @@ import scala.concurrent.ExecutionContext
 package object json {
   val objectMapper = new ObjectMapper()
     .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    .setSerializationInclusion(Include.NON_NULL)
+    .setSerializationInclusion(Include.NON_EMPTY)
     .setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE)
     .registerModule(DefaultScalaModule)
 

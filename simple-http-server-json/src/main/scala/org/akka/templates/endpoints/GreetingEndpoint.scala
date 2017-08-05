@@ -9,6 +9,7 @@ import org.akka.templates.response.Greeting
 import scala.concurrent.ExecutionContextExecutor
 
 import org.akka.templates.response._
+import org.akka.templates.validators._
 
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
@@ -22,8 +23,10 @@ trait GreetingEndpoint {
   val apiRoute: Route = {
     pathPrefix("api" / "greetings") {
       (get & parameters("greeting", "name").as(Greeting)) { greeting =>
-        complete {
-          ok(Response(greeting.greet))
+        validateGreeting(greeting) {
+          complete {
+            ok(Response(greeting.greet))
+          }
         }
       }
     }

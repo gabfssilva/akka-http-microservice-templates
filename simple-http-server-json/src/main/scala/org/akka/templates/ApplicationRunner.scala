@@ -14,6 +14,8 @@ object ApplicationRunner extends App with GreetingEndpoint {
   override implicit val materializer = ActorMaterializer()
   override implicit def executor: ExecutionContextExecutor = system.dispatcher
 
+  import org.akka.templates.response.rejection._
+
   import akka.http.scaladsl.Http
 
   Http().bindAndHandle(apiRoute, "localhost", 8080)
