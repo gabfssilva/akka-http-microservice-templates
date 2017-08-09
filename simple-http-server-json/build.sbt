@@ -10,6 +10,8 @@ libraryDependencies += "org.scala.validation" %% "core" % "0.0.5"
 libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.9"
 libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % "2.4.19"
 
+libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % "test"
+
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 
 libraryDependencies += "com.fasterxml.jackson.core"  % "jackson-core" % "2.8.8"
