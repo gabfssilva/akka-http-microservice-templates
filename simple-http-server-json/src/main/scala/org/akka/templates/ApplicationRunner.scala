@@ -16,7 +16,5 @@ object ApplicationRunner extends App with GreetingEndpoint {
 
   import akka.http.scaladsl.Http
 
-  import org.akka.templates.response.rejection._
-
   Http().bindAndHandle(apiRoute, "localhost", 8080)
 }
