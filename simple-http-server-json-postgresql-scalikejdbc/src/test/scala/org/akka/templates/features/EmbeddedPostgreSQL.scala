@@ -4,7 +4,7 @@ import ru.yandex.qatools.embed.postgresql.distribution.Version.V9_6_3
 import scalikejdbc._
 
 /**
-  * @author Gabriel Francisco <peo_gfsilva@uolinc.com>
+  * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
 object EmbeddedPostgreSQL {
   import ru.yandex.qatools.embed.postgresql.EmbeddedPostgres

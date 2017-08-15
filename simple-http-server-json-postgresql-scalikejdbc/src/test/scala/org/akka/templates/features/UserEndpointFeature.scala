@@ -9,7 +9,7 @@ import org.akka.templates.response.rejection._
 import org.scalatest.{BeforeAndAfterAll, FeatureSpec, Matchers}
 
 /**
-  * @author Gabriel Francisco <peo_gfsilva@uolinc.com>
+  * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
 class UserEndpointFeature
   extends FeatureSpec

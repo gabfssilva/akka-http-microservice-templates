@@ -8,7 +8,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 
 /**
-  * @author Gabriel Francisco <peo_gfsilva@uolinc.com>
+  * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
 class UserRepository(implicit val session: DBSession) {
   private implicit val ec = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(10))

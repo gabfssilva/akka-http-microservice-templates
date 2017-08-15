@@ -3,7 +3,7 @@ package org.akka.templates.model
 import scalikejdbc._
 
 /**
-  * @author Gabriel Francisco <peo_gfsilva@uolinc.com>
+  * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
 case class User(id: Long, username: String, age: Int)
 

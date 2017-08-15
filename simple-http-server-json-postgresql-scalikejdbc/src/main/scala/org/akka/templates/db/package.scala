@@ -3,7 +3,7 @@ package org.akka.templates
 import scalikejdbc._
 
 /**
-  * @author Gabriel Francisco <peo_gfsilva@uolinc.com>
+  * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
 package object db {
   Class.forName("org.postgresql.Driver")
