@@ -18,9 +18,18 @@ class UserEndpointFeature
     with BeforeAndAfterAll
     with UserEndpoint {
 
-  override protected def beforeAll(): Unit = EmbeddedPostgreSQL.start
+  import org.akka.templates.db._
 
-  override protected def afterAll(): Unit = EmbeddedPostgreSQL.stop
+  override protected def beforeAll(): Unit = {
+    EmbeddedPostgreSQL.start
+  }
+
+  override protected def afterAll(): Unit = {
+    ctx.close()
+    EmbeddedPostgreSQL.stop
+  }
+
+  override val userRepository: UserRepository = new UserRepository()
 
   feature("user api") {
     scenario("successful get") {
@@ -45,8 +54,4 @@ class UserEndpointFeature
       }
     }
   }
-
-  import org.akka.templates.db._
-
-  override val userRepository: UserRepository = new UserRepository()
 }

@@ -1,5 +1,9 @@
 package org.akka.templates.features
 
+import java.io.File
+import java.nio.file.Path
+import java.util
+
 import ru.yandex.qatools.embed.postgresql.distribution.Version.Main._
 
 /**
@@ -11,10 +15,13 @@ object EmbeddedPostgreSQL {
   val postgres = new EmbeddedPostgres(V9_5)
 
   def start = {
-    val url: String = postgres.start("localhost", 5432, "users", "user", "password")
+    val config = EmbeddedPostgres.cachedRuntimeConfig(new File("/tmp/postgresql").toPath)
+    val url: String = postgres.start(config, "localhost", 5432, "users", "user", "password", util.Arrays.asList())
 
     import java.sql.Connection
     import java.sql.DriverManager
+
+    Class.forName("org.postgresql.Driver")
 
     val conn: Connection = DriverManager.getConnection(url)
     
@@ -45,5 +52,5 @@ object EmbeddedPostgreSQL {
     """)
   }
 
-  def stop = postgres.stop()
+  def stop =  postgres.stop()
 }
