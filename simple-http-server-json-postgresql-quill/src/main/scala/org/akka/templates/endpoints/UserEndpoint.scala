@@ -34,7 +34,7 @@ trait UserEndpoint {
             .findById(id)
             .map {
               case user: Some[User] => ok(Envelop(user))
-              case None => notFound(Envelop(messages = List(DefaultMessage(s"user with id=$id not found"))))
+              case None => notFound(Envelop(messages = Set(DefaultMessage(s"user with id=$id not found"))))
             }
         }
       } ~ (post & entity(as[User])) { user =>

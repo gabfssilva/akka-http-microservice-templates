@@ -51,6 +51,7 @@ class UserEndpointFeature
     scenario("unprocessable entity") {
       Post(s"/api/users", "{}") ~> Route.seal(apiRoute) ~> check {
         status shouldBe StatusCodes.UnprocessableEntity
+        println(responseAs[String])
       }
     }
   }
