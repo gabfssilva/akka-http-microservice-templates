@@ -1,17 +1,15 @@
 package org.akka.templates.model
 
-import java.util.concurrent.Executors
-
+import org.akka.templates.db.DatabaseExecutorContext
 import scalikejdbc._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
-class UserRepository(implicit val session: DBSession) {
-  private implicit val ec = ExecutionContext.fromExecutorService(Executors.newFixedThreadPool(10))
+class UserRepository(implicit val session: DBSession, val ec: DatabaseExecutorContext) {
 
   def findById(id: Long): Future[Option[User]] = Future {
     sql"""select u.id, u.username, u.age from users u where u.id = $id"""
@@ -21,6 +19,8 @@ class UserRepository(implicit val session: DBSession) {
   }
 
   def save(user: User): Future[Long] = Future {
-    sql"""insert into users (username, age) values (${user.username}, ${user.age})""".updateAndReturnGeneratedKey().apply()
+    sql"""insert into users (username, age) values (${user.username}, ${user.age})"""
+      .updateAndReturnGeneratedKey()
+      .apply()
   }
 }

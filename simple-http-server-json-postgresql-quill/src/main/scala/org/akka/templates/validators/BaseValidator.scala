@@ -1,11 +1,9 @@
 package org.akka.templates.validators
 
-
 import akka.http.scaladsl.server.Directives.reject
 import akka.http.scaladsl.server.{Directive, Directive0}
-import com.wix.accord.Result
-import org.akka.templates.response.rejection.UnprocessableEntityRejection
 import com.wix.accord._
+import org.akka.templates.response.rejection.UnprocessableEntityRejection
 
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>

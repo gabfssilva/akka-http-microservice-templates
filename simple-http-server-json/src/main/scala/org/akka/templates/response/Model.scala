@@ -20,4 +20,4 @@ case class InvalidParameterMessage(path: String, message: String) extends Messag
 case class DefaultMessage(message: String, messageType: String) extends Message(message, messageType)
 
 case class Envelop(greeting: Option[Greeting] = None,
-                   messages: List[Message] = List.empty)
+                   messages: Set[_ <: Message] = Set.empty)

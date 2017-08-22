@@ -5,7 +5,7 @@ scalaVersion := "2.12.2"
 resolvers += Resolver.jcenterRepo
 resolvers += "Scala Validation Releases" at "http://dl.bintray.com/scala-validation/releases"
 
-libraryDependencies += "com.wix" % "accord-core_2.12" % "0.7.1"
+libraryDependencies += "com.wix" %% "accord-core" % "0.7.1"
 
 libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.9"
 libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % "2.4.19"
