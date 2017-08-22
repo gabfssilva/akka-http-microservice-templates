@@ -10,7 +10,7 @@ import org.akka.templates.response.rejection.UnprocessableEntityRejection
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
 trait BaseValidator {
-  def assure[T](extractor: Directive1[T])(implicit validator: Validator[T]): Directive1[T] = {
+  def validateAndExtract[T](extractor: Directive1[T])(implicit validator: Validator[T]): Directive1[T] = {
     extractor flatMap { entity =>
       validate(entity) match {
         case Success => provide(entity)

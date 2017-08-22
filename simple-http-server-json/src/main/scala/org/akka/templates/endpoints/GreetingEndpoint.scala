@@ -24,7 +24,7 @@ trait GreetingEndpoint {
 
   val apiRoute: Route = {
     (pathPrefix("api" / "greetings") & loggedRequest) {
-      (get & assure(parameters("greeting", "name").as(Greeting))) { greeting =>
+      (get & validateAndExtract(parameters("greeting", "name").as(Greeting))) { greeting =>
         complete {
           ok(Response(greeting.greet))
         }

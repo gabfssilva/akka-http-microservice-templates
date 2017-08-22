@@ -36,7 +36,7 @@ trait UserEndpoint {
               case None => notFound(Envelop(messages = Set(DefaultMessage(s"user with id=$id not found"))))
             }
         }
-      } ~ (post & assure(entity(as[User]))) { user =>
+      } ~ (post & validateAndExtract(entity(as[User]))) { user =>
         complete {
           userRepository
             .save(user)
