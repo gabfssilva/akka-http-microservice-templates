@@ -1,4 +1,4 @@
-name := "simple-http-server-json"
+name := "simple-http-server-json-scalikejdbc"
 version := "0.0.1"
 scalaVersion := "2.12.2"
 

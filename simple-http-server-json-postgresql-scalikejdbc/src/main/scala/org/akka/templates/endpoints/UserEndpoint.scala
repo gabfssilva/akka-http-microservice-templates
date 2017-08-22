@@ -10,7 +10,6 @@ import org.akka.templates.response._
 import org.akka.templates.validators._
 
 import scala.concurrent.ExecutionContextExecutor
-
 import org.akka.templates.json._
 
 /**
@@ -37,13 +36,11 @@ trait UserEndpoint {
               case None => notFound(Envelop(messages = Set(DefaultMessage(s"user with id=$id not found"))))
             }
         }
-      } ~ (post & entity(as[User])) { user =>
-        validateUser(user) {
-          complete {
-            userRepository
-              .save(user)
-              .map { id => created(s"/api/users/$id") }
-          }
+      } ~ (post & assure(entity(as[User]))) { user =>
+        complete {
+          userRepository
+            .save(user)
+            .map { id => created(s"/api/users/$id") }
         }
       }
     }

@@ -13,11 +13,8 @@ class UserRepository(implicit val ctx: DBContext) {
 
   private val users = quote(querySchema[User]("users"))
 
-  def findById(id: Long): Future[Option[User]] = run {
-    users.filter { u =>
-      u.id == lift(id)
-    }
-  }.map(_.headOption)
+  def findById(id: Long): Future[Option[User]] =
+    run { users filter { _.id == lift(id) } }.map(_.headOption)
 
   def save(user: User): Future[Long] = run {
     users.insert(lift(user)).returning(_.id)

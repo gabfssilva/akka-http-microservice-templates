@@ -13,6 +13,4 @@ package object validators extends BaseValidator {
     greeting.greeting is notBlank
     greeting.name is notBlank
   }
-
-  def validateGreeting(greeting: Greeting): Directive0 = validateEntity(greeting)
 }

@@ -8,7 +8,7 @@ import org.scalatest.{FeatureSpec, Matchers}
 import org.akka.templates.response.rejection._
 
 /**
-  * @author Gabriel Francisco <peo_gfsilva@uolinc.com>
+  * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
 class GreetingEndpointFeature
   extends FeatureSpec

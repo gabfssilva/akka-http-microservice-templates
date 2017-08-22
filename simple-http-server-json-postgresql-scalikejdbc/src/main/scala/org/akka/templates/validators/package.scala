@@ -1,6 +1,6 @@
 package org.akka.templates
 
-import akka.http.scaladsl.server.Directive0
+import com.wix.accord.Validator
 import org.akka.templates.model.User
 
 /**
@@ -9,10 +9,8 @@ import org.akka.templates.model.User
 package object validators extends BaseValidator {
   import com.wix.accord.dsl._
 
-  implicit val userValidator = validator[User] { user =>
+  implicit val userValidator: Validator[User] = validator[User] { user =>
     user.username is notBlank
     user.age should be > 0
   }
-
-  def validateUser(user: User): Directive0 = validateEntity(user)
 }

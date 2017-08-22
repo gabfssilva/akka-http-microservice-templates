@@ -7,6 +7,7 @@ import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
 import org.akka.templates.response.{Greeting, _}
 import org.akka.templates.validators._
+import org.akka.templates.json._
 
 import scala.concurrent.ExecutionContextExecutor
 
@@ -23,11 +24,9 @@ trait GreetingEndpoint {
 
   val apiRoute: Route = {
     (pathPrefix("api" / "greetings") & loggedRequest) {
-      (get & parameters("greeting", "name").as(Greeting)) { greeting =>
-        validateGreeting(greeting) {
-          complete {
-            ok(Response(greeting.greet))
-          }
+      (get & assure(parameters("greeting", "name").as(Greeting))) { greeting =>
+        complete {
+          ok(Response(greeting.greet))
         }
       }
     }

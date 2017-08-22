@@ -5,7 +5,6 @@ import scalikejdbc._
 
 import scala.concurrent.Future
 
-
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
