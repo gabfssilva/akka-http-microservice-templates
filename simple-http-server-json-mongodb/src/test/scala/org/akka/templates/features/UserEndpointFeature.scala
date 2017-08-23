@@ -18,18 +18,17 @@ class UserEndpointFeature
     with BeforeAndAfterAll
     with UserEndpoint {
 
-  import org.akka.templates.db._
-
   override protected def beforeAll(): Unit = {
-    EmbeddedPostgreSQL.start
+    EmbeddedMongoDB.startMongoDB
   }
 
   override protected def afterAll(): Unit = {
-    ctx.close()
-    EmbeddedPostgreSQL.stop
+    EmbeddedMongoDB.stopMongoDB
   }
 
-  override val userRepository: UserRepository = new UserRepository()
+  import org.akka.templates.db._
+
+  override lazy val userRepository: UserRepository = new UserRepository()
 
   feature("user api") {
     scenario("successful get") {
@@ -50,6 +49,13 @@ class UserEndpointFeature
 
     scenario("unprocessable entity") {
       Post(s"/api/users", "{}") ~> Route.seal(apiRoute) ~> check {
+        status shouldBe StatusCodes.UnprocessableEntity
+      }
+    }
+
+    //since the id is not a hex string
+    scenario("unprocessable entity on get") {
+      Get(s"/api/users/1") ~> Route.seal(apiRoute) ~> check {
         status shouldBe StatusCodes.UnprocessableEntity
       }
     }

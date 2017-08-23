@@ -5,7 +5,7 @@ import akka.event.Logging
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
-import org.akka.templates.model.{User, UserRepository}
+import org.akka.templates.model.{User, UserRepository, UserRequest}
 import org.akka.templates.response._
 import org.akka.templates.validators._
 
@@ -27,13 +27,13 @@ trait UserEndpoint {
 
   val apiRoute: Route = {
     (pathPrefix("api" / "users") & loggedRequest) {
-      (get & path(Segment)) { id =>
+      (get & validateAndExtract(path(Segment).as(UserRequest))) { request: UserRequest =>
         complete {
           userRepository
-            .findById(id)
+            .findById(request.id)
             .map {
               case user: Some[User] => ok(Envelop(user))
-              case None => notFound(Envelop(messages = Set(DefaultMessage(s"user with id=$id not found"))))
+              case None => notFound(Envelop(messages = Set(DefaultMessage(s"user with id=${request.id} not found"))))
             }
         }
       } ~ (post & validateAndExtract(entity(as[User]))) { user =>

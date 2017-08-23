@@ -5,6 +5,7 @@ import akka.http.scaladsl.server.directives.BasicDirectives.provide
 import akka.http.scaladsl.server.directives.RouteDirectives.reject
 import com.wix.accord._
 import org.akka.templates.response.rejection.UnprocessableEntityRejection
+import org.bson.types.ObjectId
 
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
@@ -16,6 +17,20 @@ trait BaseValidator {
         case Success => provide(entity)
         case Failure(violations) => reject(UnprocessableEntityRejection(violations))
       }
+    }
+  }
+
+  val objectId = new ObjectIdValidator
+
+  class ObjectIdValidator extends Validator[String] {
+    override def apply(id: String): Result = {
+      if(ObjectId.isValid(id)) {
+        return Success
+      }
+
+      Failure(Set(
+        RuleViolation(id, "is not an object id")
+      ))
     }
   }
 }
