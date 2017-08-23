@@ -11,8 +11,7 @@ package object rejection {
   implicit def validationHandler: RejectionHandler =
     RejectionHandler.newBuilder().handle {
       case UnprocessableEntityRejection(violations) =>
-        val messages: Set[InvalidParameterMessage] =
-          violations map { x => InvalidParameterMessage(Descriptions.render(x.path), x.constraint) }
+        val messages = violations map { x => InvalidParameterMessage(Descriptions.render(x.path), x.constraint) }
         complete(unprocessableEntity(Envelop(messages = messages)))
     }.result()
 }
