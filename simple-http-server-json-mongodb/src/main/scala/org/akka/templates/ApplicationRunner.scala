@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import org.akka.templates.endpoints.UserEndpoint
 import org.akka.templates.model.UserRepository
+import akka.http.scaladsl.Http
 
 import scala.concurrent.ExecutionContextExecutor
 
@@ -11,7 +12,7 @@ import scala.concurrent.ExecutionContextExecutor
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
 object ApplicationRunner extends App with UserEndpoint {
-  import akka.http.scaladsl.Http
+  import org.akka.templates.response.rejection._
   import org.akka.templates.db._
 
   override implicit val system = ActorSystem("simpleHttpServerJson")
