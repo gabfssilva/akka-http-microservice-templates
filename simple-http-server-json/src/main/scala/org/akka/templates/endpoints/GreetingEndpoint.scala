@@ -20,10 +20,8 @@ trait GreetingEndpoint {
   implicit val system: ActorSystem
   implicit val materializer: ActorMaterializer
 
-  val loggedRequest = logRequestResult("greetings", Logging.InfoLevel)
-
   val apiRoute: Route = {
-    (pathPrefix("api" / "greetings") & loggedRequest) {
+    (pathPrefix("api" / "greetings") & logRequestResult("greetings", Logging.InfoLevel)) {
       (get & validateAndExtract(parameters("greeting", "name").as(Greeting))) { greeting =>
         complete {
           ok(Response(greeting.greet))

@@ -21,12 +21,10 @@ trait UserEndpoint {
   implicit val system: ActorSystem
   implicit val materializer: ActorMaterializer
 
-  val loggedRequest = logRequestResult("users", Logging.InfoLevel)
-
   val userRepository: UserRepository
 
   val apiRoute: Route = {
-    (pathPrefix("api" / "users") & loggedRequest) {
+    (pathPrefix("api" / "users") & logRequestResult("users", Logging.InfoLevel)) {
       (get & path(LongNumber)) { id =>
         complete {
           userRepository
