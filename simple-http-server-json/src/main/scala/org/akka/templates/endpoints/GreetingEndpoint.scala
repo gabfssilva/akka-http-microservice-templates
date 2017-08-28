@@ -5,9 +5,8 @@ import akka.event.Logging
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.stream.ActorMaterializer
-import org.akka.templates.response.{Greeting, _}
+import org.akka.templates.response._
 import org.akka.templates.validators._
-import org.akka.templates.json._
 
 import scala.concurrent.ExecutionContextExecutor
 
