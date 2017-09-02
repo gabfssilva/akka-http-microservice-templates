@@ -5,6 +5,8 @@ scalaVersion := "2.12.2"
 resolvers += Resolver.jcenterRepo
 resolvers += "Scala Validation Releases" at "http://dl.bintray.com/scala-validation/releases"
 
+Revolver.enableDebugging(port = 5005, suspend = true)
+
 libraryDependencies += "com.wix" %% "accord-core" % "0.7.1"
 
 libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.9"

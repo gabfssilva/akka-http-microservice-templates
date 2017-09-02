@@ -1,14 +1,10 @@
-package org.akka.templates
+package org.akka.templates.response
 
-import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpResponse}
 import akka.http.scaladsl.model.headers.Location
-
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity, HttpResponse}
 import org.akka.templates.json._
 
-/**
-  * @author Gabriel Francisco <gabfssilva@gmail.com>
-  */
-package object response {
+trait CustomResponseSupport {
   def ok(obj: AnyRef): HttpResponse = {
     HttpResponse(
       status = 200,

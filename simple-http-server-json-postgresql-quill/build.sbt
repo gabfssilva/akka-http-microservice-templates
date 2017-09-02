@@ -3,7 +3,8 @@ version := "0.0.1"
 scalaVersion := "2.12.2"
 
 resolvers += Resolver.jcenterRepo
-resolvers += "Scala Validation Releases" at "http://dl.bintray.com/scala-validation/releases"
+
+Revolver.enableDebugging(port = 5005, suspend = true)
 
 libraryDependencies += "com.wix" %% "accord-core" % "0.7.1"
 

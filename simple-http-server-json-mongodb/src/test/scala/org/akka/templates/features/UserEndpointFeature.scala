@@ -2,10 +2,12 @@ package org.akka.templates.features
 
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.server.Route.seal
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import org.akka.templates.endpoints.UserEndpoint
 import org.akka.templates.model.UserRepository
 import org.akka.templates.response.rejection._
+import org.akka.templates.logging._
 import org.scalatest.{BeforeAndAfterAll, FeatureSpec, Matchers}
 
 /**
@@ -31,6 +33,8 @@ class UserEndpointFeature
   override lazy val userRepository: UserRepository = new UserRepository()
 
   feature("user api") {
+    val userRoute = loggableRoute(seal(apiRoute))
+
     scenario("successful get") {
       val user =
         """{
@@ -38,24 +42,24 @@ class UserEndpointFeature
          "age": 24
         }"""
 
-      Post("/api/users", user) ~> Route.seal(apiRoute) ~> check {
+      Post("/api/users", user) ~> userRoute ~> check {
         status shouldBe StatusCodes.Created
 
-        Get(header("Location").map(_.value()).orNull) ~> Route.seal(apiRoute) ~> check {
+        Get(header("Location").map(_.value()).orNull) ~> userRoute ~> check {
           status shouldBe StatusCodes.OK
         }
       }
     }
 
     scenario("unprocessable entity") {
-      Post(s"/api/users", "{}") ~> Route.seal(apiRoute) ~> check {
+      Post(s"/api/users", "{}") ~> userRoute ~> check {
         status shouldBe StatusCodes.UnprocessableEntity
       }
     }
 
     //since the id is not a hex string
     scenario("unprocessable entity on get") {
-      Get(s"/api/users/1") ~> Route.seal(apiRoute) ~> check {
+      Get(s"/api/users/1") ~> userRoute ~> check {
         status shouldBe StatusCodes.UnprocessableEntity
       }
     }
