@@ -10,6 +10,8 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.server.Route.seal
 
+import scala.util.{Failure, Success}
+
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
@@ -23,5 +25,8 @@ object ApplicationRunner extends App with GreetingEndpoint with HealthCheckEndpo
 
   private val routes: Route = loggableRoute(seal(apiRoute ~ healthCheckApiRoute))
 
-  Http().bindAndHandle(routes, "localhost", 8080)
+  Http().bindAndHandle(routes, "0.0.0.0", 8080).onComplete {
+    case Success(b) => system.log.info(s"application is up and running at ${b.localAddress.getHostName}:${b.localAddress.getPort}")
+    case Failure(e) => system.log.error(s"could not start application: {}", e.getMessage)
+  }
 }

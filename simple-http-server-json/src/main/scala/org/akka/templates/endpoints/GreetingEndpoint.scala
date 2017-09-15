@@ -9,7 +9,7 @@ import org.akka.templates.validators._
   */
 trait GreetingEndpoint extends Endpoint {
   val apiRoute: Route = pathPrefix("api" / "greetings") {
-    (get & validateAndExtract(parameters("greeting", "name").as(Greeting))) { greeting =>
+    (get & validateAndExtract(parameters("greeting".?, "name".?).as(Greeting))) { greeting =>
       complete {
         ok(Response(greeting.greet))
       }

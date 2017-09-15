@@ -3,11 +3,16 @@ package org.akka.templates.response
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
-case class Greeting(greeting: String, name: String) {
-  def greet: String = s"$greeting, $name"
+case class Greeting(greeting: Option[String], name: Option[String]) {
+  def greet: Option[String] = {
+    for {
+      g <- greeting
+      n <- name
+    } yield s"$g, $n"
+  }
 }
 
-case class Response(message: String)
+case class Response(message: Option[String])
 
 object Message {
   val INVALID_PARAMETER = "invalid parameter"

@@ -1,11 +1,26 @@
+
 name := "simple-http-server-json-scalikejdbc"
+organization := "org.akka.templates"
 version := "0.0.1"
 scalaVersion := "2.12.2"
 
 resolvers += Resolver.jcenterRepo
-resolvers += "Scala Validation Releases" at "http://dl.bintray.com/scala-validation/releases"
 
-Revolver.enableDebugging(port = 5005, suspend = true)
+Revolver.enableDebugging(port = 5005, suspend = false)
+
+enablePlugins(DockerPlugin)
+
+dockerfile in docker := {
+  // The assembly task generates a fat JAR file
+  val artifact: File = assembly.value
+  val artifactTargetPath = s"/app/${artifact.name}"
+
+  new Dockerfile {
+    from("java")
+    add(artifact, artifactTargetPath)
+    entryPoint("java", "-jar", artifactTargetPath)
+  }
+}
 
 libraryDependencies += "com.wix" %% "accord-core" % "0.7.1"
 

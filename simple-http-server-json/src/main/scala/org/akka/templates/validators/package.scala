@@ -10,7 +10,7 @@ package object validators extends BaseValidator {
   import com.wix.accord.dsl._
 
   implicit val greetingValidator = validator[Greeting] { greeting =>
-    greeting.greeting is notBlank
-    greeting.name is notBlank
+    greeting.greeting.orNull is notBlank
+    greeting.name.orNull is notBlank
   }
 }
