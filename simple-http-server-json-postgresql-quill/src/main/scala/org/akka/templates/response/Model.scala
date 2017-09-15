@@ -1,7 +1,5 @@
 package org.akka.templates.response
 
-import org.akka.templates.model.User
-
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
@@ -15,5 +13,4 @@ case class InvalidParameterMessage(path: String, message: String) extends Messag
 
 case class DefaultMessage(message: String, messageType: String = null) extends Message(message, messageType)
 
-case class Envelop(user: Option[User] = None,
-                   messages: Set[_ <: Message] = Set.empty)
+case class Envelop[T >: AnyRef](data: T = None, messages: Set[_ <: Message] = Set.empty)

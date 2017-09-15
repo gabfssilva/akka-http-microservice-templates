@@ -19,7 +19,7 @@ trait UserEndpoint extends Endpoint {
           userRepository
             .findById(id)
             .map {
-              case user @ Some(_) => ok(Envelop(user))
+              case Some(user) => ok(Envelop(user))
               case None => notFound(Envelop(messages = Set(DefaultMessage(s"user with id=$id not found"))))
             }
         }

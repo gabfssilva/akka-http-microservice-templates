@@ -5,6 +5,7 @@ import java.nio.file.Path
 import java.util
 
 import ru.yandex.qatools.embed.postgresql.distribution.Version.Main._
+import ru.yandex.qatools.embed.postgresql.distribution.Version.V9_6_3
 
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
@@ -12,11 +13,10 @@ import ru.yandex.qatools.embed.postgresql.distribution.Version.Main._
 object EmbeddedPostgreSQL {
   import ru.yandex.qatools.embed.postgresql.EmbeddedPostgres
 
-  val postgres = new EmbeddedPostgres(V9_5)
+  val postgres = new EmbeddedPostgres(V9_6_3)
 
   def start = {
-    val config = EmbeddedPostgres.cachedRuntimeConfig(new File("/tmp/postgresql").toPath)
-    val url: String = postgres.start(config, "localhost", 5432, "users", "user", "password", util.Arrays.asList())
+    val url: String = postgres.start("localhost", 5432, "users", "user", "password")
 
     import java.sql.Connection
     import java.sql.DriverManager

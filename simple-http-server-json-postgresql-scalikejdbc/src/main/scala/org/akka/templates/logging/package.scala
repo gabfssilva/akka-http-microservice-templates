@@ -27,7 +27,7 @@ package object logging {
     entry.logTo(loggingAdapter)
   }
 
-  def cloggableRoute(route: Route)(implicit m: Materializer,
+  def loggableRoute(route: Route)(implicit m: Materializer,
                                   ex: ExecutionContext,
                                   routingSettings: RoutingSettings): Route = {
     DebuggingDirectives.logRequestResult(LoggingMagnet(log => {

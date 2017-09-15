@@ -24,5 +24,4 @@ case class InvalidParameterMessage(path: String, message: String) extends Messag
 
 case class DefaultMessage(message: String, messageType: String) extends Message(message, messageType)
 
-case class Envelop(greeting: Option[Greeting] = None,
-                   messages: Set[_ <: Message] = Set.empty)
+case class Envelop[T >: AnyRef](data: T = None, messages: Set[_ <: Message] = Set.empty)

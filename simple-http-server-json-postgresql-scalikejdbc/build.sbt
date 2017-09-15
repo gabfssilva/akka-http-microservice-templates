@@ -1,4 +1,3 @@
-
 name := "simple-http-server-json-scalikejdbc"
 organization := "org.akka.templates"
 version := "0.0.1"
