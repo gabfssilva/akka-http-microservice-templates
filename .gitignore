@@ -12,3 +12,6 @@ target/
 */project/target/
 project/target/
 
+.ensime
+.ensime_cache/
+*.log

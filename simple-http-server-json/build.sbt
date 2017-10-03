@@ -1,13 +1,16 @@
 name := "simple-http-server-json"
 organization := "org.akka.templates"
 version := "0.0.1"
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.3"
 
 resolvers += Resolver.jcenterRepo
 
 Revolver.enableDebugging(port = 5005, suspend = false)
 
 enablePlugins(DockerPlugin)
+
+javaOptions in run ++= Seq(
+    "-Xms256M", "-Xmx2G", "-XX:MaxPermSize=1024M", "-XX:+UseConcMarkSweepGC")
 
 dockerfile in docker := {
   // The assembly task generates a fat JAR file

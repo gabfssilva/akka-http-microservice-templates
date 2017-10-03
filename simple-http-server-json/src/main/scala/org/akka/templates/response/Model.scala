@@ -8,7 +8,7 @@ case class Greeting(greeting: Option[String], name: Option[String]) {
     for {
       g <- greeting
       n <- name
-    } yield s"$g, $n"
+    } yield s"$g, $n!"
   }
 }
 
