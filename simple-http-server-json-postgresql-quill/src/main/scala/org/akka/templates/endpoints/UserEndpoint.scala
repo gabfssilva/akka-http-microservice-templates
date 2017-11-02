@@ -4,7 +4,6 @@ import akka.http.scaladsl.server.Route
 import org.akka.templates.model.{User, UserRepository}
 import org.akka.templates.response._
 import org.akka.templates.validators._
-import org.akka.templates.json._
 
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
@@ -18,7 +17,7 @@ trait UserEndpoint extends Endpoint {
         complete {
           userRepository
             .findById(id)
-            .map {
+            .flatMap {
               case Some(user) => ok(Envelop(user))
               case None => notFound(Envelop(messages = Set(DefaultMessage(s"user with id=$id not found"))))
             }
@@ -27,7 +26,7 @@ trait UserEndpoint extends Endpoint {
         complete {
           userRepository
             .save(user)
-            .map { id => created(s"/api/users/$id") }
+            .flatMap { id => created(s"/api/users/$id") }
         }
       }
     }

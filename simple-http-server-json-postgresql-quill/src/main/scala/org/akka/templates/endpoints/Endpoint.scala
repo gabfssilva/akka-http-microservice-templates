@@ -10,7 +10,9 @@ import scala.concurrent.ExecutionContextExecutor
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */
-trait Endpoint extends Directives with CustomResponseSupport {
+trait Endpoint
+  extends Directives
+    with CustomResponseSupport {
   implicit def executor: ExecutionContextExecutor
 
   implicit val system: ActorSystem
