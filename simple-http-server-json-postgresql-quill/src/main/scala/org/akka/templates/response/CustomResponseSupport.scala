@@ -3,10 +3,11 @@ package org.akka.templates.response
 import akka.http.scaladsl.marshalling.Marshal
 import akka.http.scaladsl.model._
 import akka.http.scaladsl.model.headers.Location
-import de.heikoseeberger.akkahttpjackson.JacksonSupport
+import de.heikoseeberger.akkahttpjackson.JacksonSupport._
 
 import scala.concurrent.{ExecutionContext, Future}
-trait CustomResponseSupport extends JacksonSupport {
+
+trait CustomResponseSupport  {
   def response[T](status: StatusCode = StatusCodes.OK,
                   entity: Option[T] = None,
                   headers: List[HttpHeader] = List.empty)(implicit ec: ExecutionContext): Future[HttpResponse] = {

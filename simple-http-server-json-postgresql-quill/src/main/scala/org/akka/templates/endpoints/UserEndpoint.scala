@@ -5,6 +5,8 @@ import org.akka.templates.model.{User, UserRepository}
 import org.akka.templates.response._
 import org.akka.templates.validators._
 
+import de.heikoseeberger.akkahttpjackson.JacksonSupport._
+
 /**
   * @author Gabriel Francisco <gabfssilva@gmail.com>
   */

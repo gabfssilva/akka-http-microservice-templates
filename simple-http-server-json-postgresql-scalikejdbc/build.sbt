@@ -28,8 +28,7 @@ libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % "2.4.19"
 
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 
-libraryDependencies += "com.fasterxml.jackson.core" % "jackson-core" % "2.8.8"
-libraryDependencies += "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.8.8"
+libraryDependencies += "de.heikoseeberger" %% "akka-http-jackson" % "1.18.0"
 
 libraryDependencies += "org.scalikejdbc" %% "scalikejdbc" % "3.0.2"
 

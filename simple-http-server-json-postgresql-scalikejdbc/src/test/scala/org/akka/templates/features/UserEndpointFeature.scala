@@ -1,6 +1,6 @@
 package org.akka.templates.features
 
-import akka.http.scaladsl.model.StatusCodes
+import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.server.Route.seal
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import org.akka.templates.endpoints.UserEndpoint
@@ -33,7 +33,7 @@ class UserEndpointFeature
          "age": 24
         }"""
 
-      Post("/api/users", user) ~> userRoute ~> check {
+      Post("/api/users", HttpEntity(ContentTypes.`application/json`, user)) ~> userRoute ~> check {
         Get(header("Location").map(_.value()).orNull) ~> userRoute ~> check {
           status shouldBe StatusCodes.OK
         }
@@ -41,7 +41,7 @@ class UserEndpointFeature
     }
 
     scenario("unprocessable entity") {
-      Post(s"/api/users", "{}") ~> userRoute ~> check {
+      Post(s"/api/users", HttpEntity(ContentTypes.`application/json`, "{}")) ~> userRoute ~> check {
         status shouldBe StatusCodes.UnprocessableEntity
       }
     }

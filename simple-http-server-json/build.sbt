@@ -9,9 +9,6 @@ Revolver.enableDebugging(port = 5005, suspend = false)
 
 enablePlugins(DockerPlugin)
 
-javaOptions in run ++= Seq(
-    "-Xms256M", "-Xmx2G", "-XX:MaxPermSize=1024M", "-XX:+UseConcMarkSweepGC")
-
 dockerfile in docker := {
   // The assembly task generates a fat JAR file
   val artifact: File = assembly.value
@@ -29,12 +26,9 @@ libraryDependencies += "com.wix" %% "accord-core" % "0.7.1"
 libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.9"
 libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % "2.4.19"
 
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % "test"
-
 libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
 
-libraryDependencies += "com.fasterxml.jackson.core"  % "jackson-core" % "2.8.8"
-libraryDependencies += "com.fasterxml.jackson.module"  %% "jackson-module-scala" % "2.8.8"
+libraryDependencies += "de.heikoseeberger" %% "akka-http-jackson" % "1.18.0"
 
 //test libraries
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"

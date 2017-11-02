@@ -31,8 +31,8 @@ package object logging {
                                   ex: ExecutionContext,
                                   routingSettings: RoutingSettings): Route = {
     DebuggingDirectives.logRequestResult(LoggingMagnet(log => {
-      val requestTimestamp = currentTimeMillis()
-      logRequestAndResponse(log, requestTimestamp)
+      val start = currentTimeMillis()
+      logRequestAndResponse(log, start)
     }))(route)
   }
 }

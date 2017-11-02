@@ -1,6 +1,5 @@
 package org.akka.templates
 
-import akka.http.scaladsl.server.Directive0
 import org.akka.templates.response.Greeting
 
 /**
