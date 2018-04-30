@@ -1,7 +1,7 @@
 name := "simple-http-server-json"
 organization := "org.akka.templates"
 version := "0.0.1"
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.6"
 
 resolvers += Resolver.jcenterRepo
 
@@ -21,19 +21,30 @@ dockerfile in docker := {
   }
 }
 
-libraryDependencies += "com.wix" %% "accord-core" % "0.7.1"
+val akkaHttp = "10.1.1"
+val akka = "2.5.11"
+val circe = "0.9.3"
+val macwire = "2.3.0"
 
-libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.9"
-libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % "2.4.19"
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-http" % akkaHttp,
+  "com.typesafe.akka" %% "akka-stream" % akka,
+  "com.typesafe.akka" %% "akka-slf4j" % akka,
 
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
+  "de.heikoseeberger" %% "akka-http-circe" % "1.20.1",
 
-libraryDependencies += "de.heikoseeberger" %% "akka-http-jackson" % "1.18.0"
+  "io.circe" %% "circe-generic" % circe,
 
-//test libraries
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
-libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" % "test"
-libraryDependencies += "com.typesafe.akka" %% "akka-http-testkit" % "10.0.9" % "test"
+  "com.softwaremill.macwire" %% "macros" % macwire,
+  "com.softwaremill.macwire" %% "util" % macwire,
+
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+
+  //test libraries
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+  "org.pegdown" % "pegdown" % "1.6.0" % "test",
+  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttp % "test"
+)
 
 testOptions in Test ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports"),
