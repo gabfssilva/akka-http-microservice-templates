@@ -1,24 +1,21 @@
-package org.akka.templates.features
+package features
 
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.server.Route
 import akka.http.scaladsl.testkit.ScalatestRouteTest
-import org.akka.templates.endpoints.HealthCheckEndpoint
-import org.akka.templates.response.rejection._
+import modules.AllModulesTest
 import org.scalatest.{FeatureSpec, Matchers}
 
-/**
-  * @author Gabriel Francisco <gabfssilva@gmail.com>
-  */
 class HealthCheckEndpointFeature
   extends FeatureSpec
     with Matchers
-    with ScalatestRouteTest
-    with HealthCheckEndpoint {
+    with ScalatestRouteTest {
+
+  val modules = new AllModulesTest
+  val route = modules.endpoints.routes
 
   feature("health check api") {
     scenario("successful get") {
-      Get(s"/api/health-check") ~> Route.seal(healthCheckApiRoute) ~> check {
+      Get(s"/api/health-check") ~> route ~> check {
         status shouldBe StatusCodes.OK
         responseAs[String] shouldBe "ok"
       }

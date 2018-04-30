@@ -1,21 +1,30 @@
-package org.akka.templates
+package endpoints
 
 import java.lang.System.currentTimeMillis
 
+import akka.actor.ActorSystem
 import akka.event.{Logging, LoggingAdapter}
-import akka.http.scaladsl.settings.RoutingSettings
 import akka.http.scaladsl.model.HttpRequest
-import akka.http.scaladsl.server.Route
+import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.RouteResult.Complete
-import akka.http.scaladsl.server.directives.{DebuggingDirectives, LogEntry, LoggingMagnet}
-import akka.stream.Materializer
+import akka.http.scaladsl.server._
+import akka.http.scaladsl.server.directives._
+import akka.http.scaladsl.settings.RoutingSettings
+import akka.stream.{ActorMaterializer, Materializer}
 
 import scala.concurrent.ExecutionContext
 
-/**
-  * @author Gabriel Francisco <gabfssilva@gmail.com>
-  */
-package object logging {
+class Endpoints(userEndpoint: UserEndpoint,
+                healthCheckEndpoint: HealthCheckEndpoint) {
+  def routes(implicit
+             sys: ActorSystem,
+             mat: ActorMaterializer,
+             ec: ExecutionContext) = loggableRoute {
+    Route.seal {
+      userEndpoint.userRoutes ~ healthCheckEndpoint.healthCheckRoute
+    }
+  }
+
   def logRequestAndResponse(loggingAdapter: LoggingAdapter, before: Long)(req: HttpRequest)(res: Any): Unit = {
     val entry = res match {
       case Complete(resp) =>
@@ -31,8 +40,8 @@ package object logging {
                                   ex: ExecutionContext,
                                   routingSettings: RoutingSettings): Route = {
     DebuggingDirectives.logRequestResult(LoggingMagnet(log => {
-      val start = currentTimeMillis()
-      logRequestAndResponse(log, start)
+      val requestTimestamp = currentTimeMillis()
+      logRequestAndResponse(log, requestTimestamp)
     }))(route)
   }
 }
