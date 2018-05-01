@@ -1,25 +1,19 @@
-package org.akka.templates.features
+package utils
 
-import java.io.File
-import java.nio.file.Path
+import java.nio.file.Paths
 import java.util
 
-import ru.yandex.qatools.embed.postgresql.distribution.Version.Main._
-import ru.yandex.qatools.embed.postgresql.distribution.Version.V9_6_3
+import ru.yandex.qatools.embed.postgresql.distribution.Version.V9_6_8
 
-/**
-  * @author Gabriel Francisco <gabfssilva@gmail.com>
-  */
 object EmbeddedPostgreSQL {
   import ru.yandex.qatools.embed.postgresql.EmbeddedPostgres
 
-  val postgres = new EmbeddedPostgres(V9_6_3)
+  val postgres = new EmbeddedPostgres(V9_6_8)
 
   def start = {
-    val url: String = postgres.start("localhost", 5432, "users", "user", "password")
+    val url: String = postgres.start(EmbeddedPostgres.cachedRuntimeConfig(Paths.get("/tmp/postgres")), "localhost", 5432, "users", "user", "password", util.Arrays.asList())
 
-    import java.sql.Connection
-    import java.sql.DriverManager
+    import java.sql.{Connection, DriverManager}
 
     Class.forName("org.postgresql.Driver")
 
@@ -41,7 +35,7 @@ object EmbeddedPostgreSQL {
       """
       CREATE TABLE public.users (id integer NOT NULL DEFAULT nextval('users_id_seq'::regclass),
                       username character varying(255) COLLATE pg_catalog."default" NOT NULL,
-                      age integer NOT NULL,
+                      user_age integer NOT NULL,
                       CONSTRAINT users_pkey PRIMARY KEY (id))
                      WITH (
                          OIDS = FALSE
@@ -52,5 +46,6 @@ object EmbeddedPostgreSQL {
     """)
   }
 
-  def stop =  postgres.stop()
+  def stop =
+    postgres.stop()
 }

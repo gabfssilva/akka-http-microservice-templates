@@ -1,12 +1,13 @@
-
-name := "simple-http-server-json-postgresql-quill"
+name := "simple-http-server-postgresql-quill"
 organization := "org.akka.templates"
 version := "0.0.1"
-scalaVersion := "2.12.2"
+scalaVersion := "2.12.6"
 
 resolvers += Resolver.jcenterRepo
 
 Revolver.enableDebugging(port = 5005, suspend = false)
+
+scalacOptions += "-target:jvm-1.8"
 
 enablePlugins(DockerPlugin)
 
@@ -22,25 +23,35 @@ dockerfile in docker := {
   }
 }
 
-libraryDependencies += "com.wix" %% "accord-core" % "0.7.1"
+val akkaHttp = "10.1.1"
+val akka = "2.5.11"
+val circe = "0.9.3"
+val macwire = "2.3.0"
+val quill = "2.4.2"
 
-libraryDependencies += "com.typesafe.akka" %% "akka-http" % "10.0.9"
-libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % "2.4.19"
+libraryDependencies ++= Seq(
+  "com.typesafe.akka" %% "akka-http" % akkaHttp,
+  "com.typesafe.akka" %% "akka-stream" % akka,
+  "com.typesafe.akka" %% "akka-slf4j" % akka,
 
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3"
+  "de.heikoseeberger" %% "akka-http-circe" % "1.20.1",
 
-libraryDependencies += "de.heikoseeberger" %% "akka-http-jackson" % "1.18.0"
+  "io.circe" %% "circe-generic" % circe,
 
-libraryDependencies += "io.getquill" % "quill-sql_2.12" % "1.3.0"
-libraryDependencies += "io.getquill" % "quill-async-postgres_2.12" % "1.3.0"
+  "com.softwaremill.macwire" %% "macros" % macwire,
+  "com.softwaremill.macwire" %% "util" % macwire,
 
-//test libraries
-libraryDependencies += "ch.qos.logback" % "logback-classic" % "1.2.3" % "test"
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" % "test"
-libraryDependencies += "org.pegdown" % "pegdown" % "1.6.0" % "test"
-libraryDependencies += "com.typesafe.akka" %% "akka-http-testkit" % "10.0.9" % "test"
-libraryDependencies += "ru.yandex.qatools.embed" % "postgresql-embedded" % "2.3" % "test"
-libraryDependencies += "org.postgresql" % "postgresql" % "42.1.4" % "test"
+  "ch.qos.logback" % "logback-classic" % "1.2.3",
+
+  "io.getquill" %% "quill-async-postgres" % quill,
+
+  //test libraries
+  "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+  "org.pegdown" % "pegdown" % "1.6.0" % "test",
+  "com.typesafe.akka" %% "akka-http-testkit" % akkaHttp % "test",
+  "ru.yandex.qatools.embed" % "postgresql-embedded" % "2.9" % "test",
+  "org.postgresql" % "postgresql" % "42.1.4" % "test"
+)
 
 testOptions in Test ++= Seq(
   Tests.Argument(TestFrameworks.ScalaTest, "-u", "target/test-reports"),
