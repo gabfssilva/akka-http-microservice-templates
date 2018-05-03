@@ -1,4 +1,4 @@
-# simple-http-server-json-postgresql-quill
+# simple-http-server-json-postgresql-scalikejdbc
 
 This example shows a simple microservice written in Scala using:
 
