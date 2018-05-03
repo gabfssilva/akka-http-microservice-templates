@@ -1,21 +1,21 @@
-package org.akka.templates.features
+package utils
 
-import ru.yandex.qatools.embed.postgresql.distribution.Version.V9_6_3
-import scalikejdbc._
+import java.nio.file.Paths
+import java.util
 
-/**
-  * @author Gabriel Francisco <gabfssilva@gmail.com>
-  */
+import ru.yandex.qatools.embed.postgresql.distribution.Version.V9_6_8
+
 object EmbeddedPostgreSQL {
   import ru.yandex.qatools.embed.postgresql.EmbeddedPostgres
 
-  val postgres = new EmbeddedPostgres(V9_6_3)
+  val postgres = new EmbeddedPostgres(V9_6_8)
 
   def start = {
-    val url: String = postgres.start("localhost", 5432, "users", "user", "password")
+    val url: String = postgres.start(EmbeddedPostgres.cachedRuntimeConfig(Paths.get("/tmp/postgres")), "localhost", 5432, "users", "user", "password", util.Arrays.asList())
 
-    import java.sql.Connection
-    import java.sql.DriverManager
+    import java.sql.{Connection, DriverManager}
+
+    Class.forName("org.postgresql.Driver")
 
     val conn: Connection = DriverManager.getConnection(url)
     
@@ -46,5 +46,6 @@ object EmbeddedPostgreSQL {
     """)
   }
 
-  def stop = postgres.stop()
+  def stop =
+    postgres.stop()
 }
