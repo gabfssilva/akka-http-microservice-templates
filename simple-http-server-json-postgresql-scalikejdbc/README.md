@@ -3,9 +3,9 @@
 This example shows a simple microservice written in Scala using:
 
 - [Akka HTTP](http://doc.akka.io/docs/akka-http/current/scala/http/), to expose the http services
-- [Jackson](http://wiki.fasterxml.com/JacksonHome) and [Jackson Module Scala](https://github.com/FasterXML/jackson-module-scala), to parse json into scala objects and vice versa
 - [ScalikeJDBC](http://scalikejdbc.org/), to access PostgreSQL using a Scala JDBC wrapper
-- [Accord](http://wix.github.io/accord/), for model validation
+- [Circe](https://circe.github.io/circe/), to parse json into scala objects and vice versa
+- [MacWire](https://github.com/adamw/macwire), a simple compile time dependency injection library
 - [Embedded PostgreSQL Server](https://github.com/yandex-qatools/postgresql-embedded), for testing
 
 ### Note on ScalikeJDBC:
@@ -24,7 +24,7 @@ If you do not have SBT installed:
 ### Installing SBT
 
 #### deb
-``` 
+```
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
 sudo apt-get update
@@ -36,6 +36,12 @@ sudo apt-get install sbt
 curl https://bintray.com/sbt/rpm/rpm > bintray-sbt-rpm.repo
 sudo mv bintray-sbt-rpm.repo /etc/yum.repos.d/
 sudo yum install sbt
+```
+
+#### macOS (using brew)
+
+```
+brew install sbt@1
 ```
 
 ### Building
